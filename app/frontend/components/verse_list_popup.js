@@ -331,20 +331,20 @@ class VerseListPopup {
   }
 
   getOverlayVerseBoxPosition(verse_box) {
-    var currentVerseListComposite = app_controller.getCurrentVerseListComposite();
+    var currentVerseListFrame = app_controller.getCurrentVerseListFrame();
 
     var verse_box_position = verse_box.offset();
     var verse_box_class = verse_box.attr('class');
     var verse_nr = parseInt(verse_box_class.match(/verse-nr-[0-9]*/)[0].split('-')[2]);
     var next_verse_nr = verse_nr + 1;
 
-    var next_verse_box = currentVerseListComposite.find('.verse-nr-' + next_verse_nr);
+    var next_verse_box = currentVerseListFrame.find('.verse-nr-' + next_verse_nr);
     var next_verse_box_position = next_verse_box.offset();
     if (next_verse_box_position == undefined) {
       next_verse_box_position = verse_box.offset();
     }
-    var verse_list_height = currentVerseListComposite.height();
-    var verse_list_position = currentVerseListComposite.offset();
+    var verse_list_height = currentVerseListFrame.height();
+    var verse_list_position = currentVerseListFrame.offset();
     var screen_bottom = verse_list_position.top + verse_list_height;
     var cross_reference_box_height = 240;
     var overlay_box_position = null;

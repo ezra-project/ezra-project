@@ -79,7 +79,7 @@ class TextController {
       uiHelper.showTextLoadingIndicator();
     }
 
-    var temporary_help = app_controller.getCurrentVerseListComposite(tabIndex).find('.temporary-help, .help-text');
+    var temporary_help = app_controller.getCurrentVerseListFrame(tabIndex).find('.temporary-help, .help-text');
     temporary_help.hide();
   }
 
@@ -564,7 +564,7 @@ class TextController {
       if (!currentTab.hasReferenceVerse()) {
         var tagTitleList = currentTab.getTagTitleList();
         var headerText = `<h2><span i18n="tags.verses-tagged-with">${i18n.t('tags.verses-tagged-with')}</span> <i>${tagTitleList}</i></h2>`;
-        var verseListHeader = app_controller.getCurrentVerseListComposite(tabIndex).find('.verse-list-header');
+        var verseListHeader = app_controller.getCurrentVerseListFrame(tabIndex).find('.verse-list-header');
         verseListHeader.html(headerText);
         verseListHeader.show();
       }
@@ -604,7 +604,7 @@ class TextController {
         headerElementClass = '.reference-verse-list-header';
       }
 
-      var verseListHeader = app_controller.getCurrentVerseListComposite(tabIndex).find(headerElementClass).find('h2');
+      var verseListHeader = app_controller.getCurrentVerseListFrame(tabIndex).find(headerElementClass).find('h2');
       var headerWithResultNumber = `${verseListHeader.html()} (${numberOfTaggedVerses})`;
       verseListHeader.html(headerWithResultNumber);
     }

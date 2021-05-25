@@ -25,7 +25,7 @@
   <link rel="preload" href="node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2" as="font" type="font/woff2">
   <link href="node_modules/@fortawesome/fontawesome-free/css/solid.min.css" rel="stylesheet" type="text/css" />
   <link href="node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css" rel="stylesheet" type="text/css" />
-  
+
   <!-- JQUERY STYLES -->
   <link id="theme-css" href="css/jquery-ui/cupertino/jquery-ui.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="css/jquery-ui/jquery-ui.selectmenu.css" media="screen" rel="stylesheet" type="text/css" />
@@ -81,27 +81,41 @@
     <a name='top'></a>
 
     <div id="app-container">
-      <div id="bible-browser-toolbox"></div>
-      <div id="book-selection-menu" class="verse-selection-menu"></div>
-      <div id="tag-selection-menu" class="verse-selection-menu"></div>
-      <div id="module-search-menu" class="module-search-menu"></div>
-      <div id="display-options-menu" class="display-options-menu"></div>
-      <div id="module-settings-assistant" style="display: none;"></div>
-      <div id="tag-assignment-menu" class="verse-selection-menu"></div>
+      <main class="content">
+        <div id="book-selection-menu" class="verse-selection-menu"></div>
+        <div id="tag-selection-menu" class="verse-selection-menu"></div>
+        <div id="module-search-menu" class="module-search-menu"></div>
+        <div id="display-options-menu" class="display-options-menu"></div>
+        <div id="module-settings-assistant" style="display: none;"></div>
+        <div id="tag-assignment-menu" class="verse-selection-menu"></div>
 
-      <div id="permissions-box">
-        <div id="permissions-box-content">
+        <div id="permissions-box">
+          <div id="permissions-box-content">
+          </div>
         </div>
-      </div>
 
-      <div id="general-info-box">
-        <div id="general-info-box-content">
+        <div id="general-info-box">
+          <div id="general-info-box-content">
+          </div>
         </div>
-      </div>
 
-      <div id="boxes"></div>
+        <div id="boxes"></div>
 
-      <div id="verse-list-tabs"></div>
+        <div id="verse-list-tabs"></div>
+      </main>
+      <section id="bible-browser-toolbox"></section>
+      <section id="bottom-view">
+        <div id="dictionary-info-box" class="accordion-panel">
+          <h3>
+            <a href="#" id="dictionary-info-box-header" i18n="[html]dictionary-info-box.default-header"></a>
+          </h3>
+          <div id="dictionary-info-box-panel" class="scrollable">
+            <div id="dictionary-info-box-help" i18n="[html]dictionary-info-box.help-instruction"></div>
+            <div id="dictionary-info-box-breadcrumbs"></div>
+            <div id="dictionary-info-box-content"></div>
+          </div>
+        </div>        
+      </section>
     </div>
   </div>
 

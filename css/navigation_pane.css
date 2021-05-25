@@ -17,13 +17,14 @@
    If not, see <http://www.gnu.org/licenses/>. */
 
 .navigation-pane {
-  float: left;
+  grid-area: navigation;
   padding-top: 0.5em;
   padding-left: 0.5em;
   padding-right: 1em;
   padding-bottom: 0.5em;
   overflow-y: scroll;
   border: 1px solid #DDDDDD;
+  border-right: none;
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
   user-select: none;

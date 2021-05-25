@@ -16,6 +16,9 @@
    along with Ezra Bible App. See the file LICENSE.
    If not, see <http://www.gnu.org/licenses/>. */
 
+
+const { html } = require('../helpers/ezra_helper.js');
+
 let jsStrongs = null;
 
 /**
@@ -238,10 +241,7 @@ class DictionaryInfoBox {
   }
 
   getShortInfo(strongsEntry, lemma) {
-    var strongsShortInfo = strongsEntry.transcription + " &mdash; " + 
-                           strongsEntry.phoneticTranscription + " &mdash; " + 
-                           lemma;
-    return strongsShortInfo;
+    return `${strongsEntry.transcription} &mdash; ${strongsEntry.phoneticTranscription} &mdash; ${lemma}`;
   }
 
   getFindAllLink(strongsEntry) {
@@ -261,7 +261,10 @@ class DictionaryInfoBox {
     var blueLetterTranslations = ['KJV', 'NASB', 'ASV', 'WEB'];
     if (!blueLetterTranslations.includes(bible)) {
       bible = 'KJV';
+    } else if (bible === 'NASB') {
+      bible = 'NASB20'; // There are two versions NASB1995 and NASB2020 on BLB
     }
+
 
     var blueLetterLink = `https://www.blueletterbible.org/lang/lexicon/lexicon.cfm?Strongs=${strongsEntry.key}&t=${bible}`;
     var blueLetterLinkText = i18n.t("dictionary-info-box.open-in-blueletter");
@@ -299,10 +302,6 @@ class DictionaryInfoBox {
   }
 
   async getExtendedStrongsInfo(strongsEntry, lemma) {
-    var extendedStrongsInfo = "";
-    var strongsShortInfo = this.getShortInfo(strongsEntry, lemma);
-    var findAllLink = this.getFindAllLink(strongsEntry);
-    var blueLetterLink = this.getBlueletterLink(strongsEntry);
 
     var lang = "";
     if (strongsEntry.key[0] == 'G') {
@@ -313,35 +312,22 @@ class DictionaryInfoBox {
 
     var extraDictContent = await this.getExtraDictionaryContent(lang, strongsEntry);
 
-    extendedStrongsInfo += "<b>" + strongsShortInfo + "</b>";
-    extendedStrongsInfo += "<p>";
-    extendedStrongsInfo += findAllLink;
-    extendedStrongsInfo += " | ";
-    extendedStrongsInfo += blueLetterLink;
-    extendedStrongsInfo += "</p>";
-    extendedStrongsInfo += extraDictContent;
-    extendedStrongsInfo += "<b>Strong's</b>";
-    extendedStrongsInfo += "<pre class='strongs-definition'>";
-    extendedStrongsInfo += strongsEntry.definition;
-    extendedStrongsInfo += "</pre>";
+    var relatedStrongs = (await Promise.all(strongsEntry.references.map(async (ref, i) => 
+      await this.getStrongsReferenceTableRow(ref, i == (strongsEntry.references.length - 1))
+    ))).join('');
 
-    if (strongsEntry.references.length > 0) {
-      extendedStrongsInfo += "<hr></hr>";
-      var relatedStrongs = "<b>" + i18n.t("dictionary-info-box.related-strongs") + ":</b><br/>";
-      extendedStrongsInfo += relatedStrongs;
-      extendedStrongsInfo += "<table class='strongs-refs'>";
-
-      for (var i = 0;  i < strongsEntry.references.length; i++) {
-        var isLastRow = (i == (strongsEntry.references.length - 1));
-        var referenceTableRow = await this.getStrongsReferenceTableRow(strongsEntry.references[i], isLastRow);
-
-        if (referenceTableRow != null) {
-          extendedStrongsInfo += referenceTableRow;
-        }
-      }
-
-      extendedStrongsInfo += "</table>";
-    }    
+    var extendedStrongsInfo = `
+      <b>${this.getShortInfo(strongsEntry, lemma)}</b>
+      <p>${this.getFindAllLink(strongsEntry)} | ${this.getBlueletterLink(strongsEntry)}</p>
+      ${extraDictContent}
+      <b>Strong's</b>
+      <pre class='strongs-definition'>${strongsEntry.definition}</pre>
+    ${relatedStrongs.length > 0 && `<hr/>
+      <b>${i18n.t("dictionary-info-box.related-strongs")}:</b><br/>
+      <table class="strongs-refs">
+      ${relatedStrongs}
+      </table>`
+    }`;    
 
     return extendedStrongsInfo;
   }

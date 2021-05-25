@@ -38,6 +38,7 @@
 
 html,
 body {
+  margin: 0;
   font: caption;
   user-select: none;
   font-size: 100.1%;
@@ -94,6 +95,10 @@ h2 {
 #verse-list-tabs {
   border: 0;
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 #verse-list-tabs .ui-tabs-nav {
@@ -111,7 +116,25 @@ h2 {
   cursor: default;
 }
 
+.verse-list-container {
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.verse-list-grid-container {
+  display: grid;
+  grid-template-columns: minmax(0, auto) 1fr;
+  grid-template-rows: auto 1fr minmax(0, auto);
+  grid-template-areas: 
+      "menu menu"
+      "navigation verse-list"
+      "navigation tab-search";
+  height: 100%;
+  width: 100%;    
+}
+
 .verse-list-menu {
+  grid-area: menu;
   margin-bottom: 0.5em;
   border-radius: 6px;
   user-select: none;
@@ -131,6 +154,7 @@ h2 {
 }
 
 .verse-list-frame {
+  grid-area: verse-list;
   overflow-y: scroll;
   overflow-x: hidden;
   /* This prevents a horizontal scrollbar on small screens  */
@@ -141,16 +165,7 @@ h2 {
   padding-bottom: 1em;
 }
 
-.verse-list-composite:not(.no-chapter-nav) .verse-list-frame {
-  border-left: none;
-}
-
-.verse-list-composite.no-chapter-nav .tab-search {
-  border-left: 1px solid lightgray;
-  border-bottom-left-radius: 4px;
-}
-
-.verse-list-composite.no-chapter-nav .verse-list-frame {
+.verse-list-frame-no-chapter-nav {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
 }
@@ -483,16 +498,25 @@ h2 {
 }
 
 #app-container {
-  position: fixed;
-  top: 0px;
-  left: 0.5em;
-  padding: 0px;
-  padding-top: 0.3em;
-  width: 99%;
-  height: 40em;
-  border: 0;
-  display: flex;
-  flex-direction: row;
+  position: relative;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  padding: 1em;
+  grid-template-columns: minmax(0, auto) 1fr;
+  grid-template-rows: 1fr minmax(0, auto);
+  grid-template-areas: 
+    "side-view content"
+    "side-view bottom-view";
+  gap: 1em;  
+}
+
+main.content {
+  grid-area: content;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 #app-container .ui-tabs-panel,
@@ -1329,17 +1353,21 @@ h2 {
 }
 
 .tab-search {
+  grid-area: tab-search;
   background-color: white;
   padding: 0.5em;
   border-bottom-right-radius: 4px;
   border: 1px solid lightGrey;
-  border-left: none;
+  /* border-left: none; */
   border-top: none;
   display: none;
   align-items: center;
   justify-content: center;
   z-index: 10;
   flex-flow: row wrap;
+}
+.verse-list-frame-no-chapter-nav + .tab-search {
+  border-bottom-left-radius: 4px;
 }
 
 .darkmode--activated .tab-search {
@@ -1640,7 +1668,7 @@ s {
 }
 
 .darkmode--activated p,
-.darkmode--activated .verse-list-composite {
+.darkmode--activated .verse-list-container {
   color: #cccccc;
 }
 

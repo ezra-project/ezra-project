@@ -5,7 +5,7 @@
   </li>
 </ul>
 
-<div id="verse-list-tabs-1" class="verse-list-container">
+<div id="verse-list-tabs-1" class="verse-list-container"><div class="verse-list-grid-container">
 
   <div class="verse-list-menu">
     <div class="verse-list-menu-line">
@@ -111,70 +111,67 @@
 
   </div> <!-- verse-list-menu -->
 
-  <div class="verse-list-composite">
-    <div class="navigation-pane navigation-pane-chapters scrollable">
+  <div class="navigation-pane navigation-pane-chapters scrollable">
+  </div>
+
+  <div class="verse-list-frame scrollable">
+    <div class="verse-list-header">
     </div>
 
-    <div class="verse-list-frame scrollable">
-      <div class="verse-list-header">
+    <div class="verse-list-loading-indicator">
+      <div style="float: left;" class="verse-list-loading-indicator-text loading-indicator-text"></div>
+
+      <div class="loader">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
       </div>
+    </div>
 
-      <div class="verse-list-loading-indicator">
-        <div style="float: left;" class="verse-list-loading-indicator-text loading-indicator-text"></div>
-
-        <div class="loader">
-          <div class="bounce1"></div>
-          <div class="bounce2"></div>
-          <div class="bounce3"></div>
-        </div>
+    <div style='display: flex; flex-direction: row;'>
+      <div class='search-progress-bar progress-bar' style="margin-left: 2em; margin-right: 2em; width: 70%;">
+        <div class='progress-label'></div>
       </div>
-
-      <div style='display: flex; flex-direction: row;'>
-        <div class='search-progress-bar progress-bar' style="margin-left: 2em; margin-right: 2em; width: 70%;">
-          <div class='progress-label'></div>
-        </div>
   
-        <div class="cancel-module-search-button-container" style="display: none;">
-          <button class="cancel-module-search-button fg-button ui-corner-all ui-state-default"  i18n="general.cancel"></button>
-        </div>
-      </div>
-
-      <div class="temporary-help">
-      </div>
-
-      <div class="reference-verse">
-      </div>
-      
-      <div class='verse-statistics-chart-container'>
-        <canvas class="verse-statistics-chart">
-        </canvas>
-      </div>
-
-      <div class="verse-list">
-        <div class="help-text">
-        </div>
-      </div>
-    </div> <!-- verse-list-frame -->
-
-    <div class="tab-search">
-      <div class="tab-search-form">
-        <input class="tab-search-input" type="text" />
-        <div class="tab-search-occurances" class="tab-search-occurances"></div>
-        <span class="tab-search-previous tab-search-nav">&#x25B2;</span>
-        <span class="tab-search-next tab-search-nav">&#x25BC;</span>
-      </div>
-      <div class="tab-search-options">
-        <select class="tab-search-type" style="margin-right: 1em;">
-          <option value="phrase" i18n="search-menu.exact-phrase"></option>
-          <option value="multiWord" i18n="search-menu.multi-word"></option>
-        </select>
-        <label>
-          <input type="checkbox" class="tab-search-is-case-sensitive">
-          <span i18n="search-menu.case-sensitive"></span>
-        </label>
+      <div class="cancel-module-search-button-container" style="display: none;">
+        <button class="cancel-module-search-button fg-button ui-corner-all ui-state-default"  i18n="general.cancel"></button>
       </div>
     </div>
 
-  </div> <!-- verse-list-composite -->
+    <div class="temporary-help">
+    </div>
 
-  </div> <!-- verse-list-container -->
+    <div class="reference-verse">
+    </div>
+    
+    <div class='verse-statistics-chart-container'>
+      <canvas class="verse-statistics-chart">
+      </canvas>
+    </div>
+
+    <div class="verse-list">
+      <div class="help-text">
+      </div>
+    </div>
+  </div> <!-- verse-list-frame -->
+
+  <div class="tab-search">
+    <div class="tab-search-form">
+      <input class="tab-search-input" type="text" />
+      <div class="tab-search-occurances" class="tab-search-occurances"></div>
+      <span class="tab-search-previous tab-search-nav">&#x25B2;</span>
+      <span class="tab-search-next tab-search-nav">&#x25BC;</span>
+    </div>
+    <div class="tab-search-options">
+      <select class="tab-search-type" style="margin-right: 1em;">
+        <option value="phrase" i18n="search-menu.exact-phrase"></option>
+        <option value="multiWord" i18n="search-menu.multi-word"></option>
+      </select>
+      <label>
+        <input type="checkbox" class="tab-search-is-case-sensitive">
+        <span i18n="search-menu.case-sensitive"></span>
+      </label>
+    </div>
+  </div>
+
+</div></div> <!-- verse-list-container -->

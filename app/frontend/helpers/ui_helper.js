@@ -104,29 +104,29 @@ class UiHelper {
   
   // FIXME: implement responsive resizing with css 
   resizeVerseList(tabIndex=undefined) {
-    if (tabIndex === undefined) {
-      tabIndex = app_controller.tab_controller.getSelectedTabIndex();
-    }
+    // if (tabIndex === undefined) {
+    //   tabIndex = app_controller.tab_controller.getSelectedTabIndex();
+    // }
 
-    var tabsNav = $(document.getElementById('verse-list-tabs').querySelector('.ui-tabs-nav'));
-    var currentVerseListMenu = app_controller.getCurrentVerseListMenu(tabIndex);
-    var verseListComposite = app_controller.getCurrentVerseListComposite(tabIndex);
+    // var tabsNav = $(document.getElementById('verse-list-tabs').querySelector('.ui-tabs-nav'));
+    // var currentVerseListMenu = app_controller.getCurrentVerseListMenu(tabIndex);
+    // var verseListComposite = app_controller.getCurrentVerseListComposite(tabIndex);
 
-    var currentTabSearch = verseListComposite.find('.tab-search');
-    var currentTabSearchHeight = currentTabSearch.height() + 15;
-    var tabSearchVisible = false;
-    if (currentTabSearch.css('display') != 'none') {
-      tabSearchVisible = true;
-    }
+    // var currentTabSearch = verseListComposite.find('.tab-search');
+//    var currentTabSearchHeight = currentTabSearch.height() + 15;
+    // var tabSearchVisible = false;
+    // if (currentTabSearch.css('display') != 'none') {
+    //   tabSearchVisible = true;
+    // }
 
-    var navigationPane = verseListComposite.find('.navigation-pane');
-    var verseListFrame = verseListComposite.find('.verse-list-frame');
+    // var navigationPane = verseListComposite.find('.navigation-pane');
+    var verseListFrame = app_controller.getCurrentVerseListFrame(tabIndex);
   
-    var navPaneHeight = this.app_container_height - tabsNav.height() - currentVerseListMenu.height() - 40;
-    navigationPane.css('height', navPaneHeight);
+    // var navPaneHeight = this.app_container_height - tabsNav.height() - currentVerseListMenu.height() - 40;
+    // navigationPane.css('height', navPaneHeight);
 
-    var verseListHeight = tabSearchVisible ? navPaneHeight - currentTabSearchHeight : navPaneHeight;
-    verseListFrame.css('height', verseListHeight);
+    // var verseListHeight = tabSearchVisible ? navPaneHeight - currentTabSearchHeight : navPaneHeight;
+    // verseListFrame.css('height', verseListHeight);
   
     this.adaptVerseList(verseListFrame);
   }
@@ -163,8 +163,8 @@ class UiHelper {
       verseListTabs.removeClass('verse-list-tabs-tiny-screen');
     }
 
-    this.app_container_height = $(window).height() - 10;
-    $("#app-container").css("height", this.app_container_height);
+    // this.app_container_height = $(window).height() - 10;
+    // $("#app-container").css("height", this.app_container_height);
   
     var tabCount = app_controller.tab_controller.getTabCount();
     for (var i = 0; i < tabCount; i++) {

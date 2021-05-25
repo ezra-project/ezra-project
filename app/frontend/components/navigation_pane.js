@@ -40,14 +40,14 @@ class NavigationPane {
   };
 
   show(tabIndex) {
-    var verseListComposite = app_controller.getCurrentVerseListComposite(tabIndex);
-    verseListComposite.removeClass(this.verseListFrameNoChapterNavCss);
+    var verseListFrame = app_controller.getCurrentVerseListFrame(tabIndex);
+    verseListFrame.removeClass(this.verseListFrameNoChapterNavCss);
     this.getCurrentNavigationPane(tabIndex).show();
   }
 
   hide(tabIndex) {
-    var verseListComposite = app_controller.getCurrentVerseListComposite(tabIndex);
-    verseListComposite.addClass(this.verseListFrameNoChapterNavCss);
+    var verseListFrame = app_controller.getCurrentVerseListFrame(tabIndex);
+    verseListFrame.addClass(this.verseListFrameNoChapterNavCss);
     this.getCurrentNavigationPane(tabIndex).hide();
   }
 
