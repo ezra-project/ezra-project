@@ -3,6 +3,8 @@
 package-lock.json
 *.code-workspace
 /.vscode
+!/.vscode/launch.json
+!/.vscode/settings.json
 /.idea
 /app/templates/verse_list.js
 /app/templates/tag_list.js

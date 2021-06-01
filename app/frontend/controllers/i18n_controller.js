@@ -92,7 +92,7 @@ module.exports.initLocale = async function() {
   }
 
   window.reference_separator = i18n.t('general.chapter-verse-separator');
-}
+};
 
 function preserveLocaleForStartup() {
   if (window.localStorage) {
@@ -117,14 +117,14 @@ module.exports.changeLocale = async function(newLocale, saveSettings=true) {
   // Since the new locale may require more or less space vertically we need to adjust
   // the height of the app container now.
   uiHelper.resizeAppContainer();
-}
+};
 
 var localeSubscribers = [];
 module.exports.addLocaleChangeSubscriber = function(subscriberCallback) {
   if (typeof subscriberCallback === 'function') {
     localeSubscribers.push(subscriberCallback);
   }
-}
+};
 
 async function notifySubscribers(locale) {
   for (let subscriberCallback of localeSubscribers) {
@@ -135,13 +135,13 @@ async function notifySubscribers(locale) {
 module.exports.detectLocale = async function() {
   await this.changeLocale(systemLocale || FALLBACK_LOCALE, false);
   await ipcSettings.delete(SETTINGS_KEY);
-}
+};
 
 module.exports.getLocale = function() {
   var locale = i18n.language;
   return locale.slice(0, 2); // just in case we got language with the region code (i.e "en-US") we want only the language code ("en")
-}
+};
 
 module.exports.getAvailableLocales = function() {
   return AVAILABLE_LOCALES.sort();
-}
+};

@@ -109,10 +109,10 @@ class RemoveModuleAssistant {
 
   initRemoveModuleAssistant() {
     if (this._removeModuleAssistantOriginalContent != undefined) {
-        $('#module-settings-assistant-remove').steps("destroy");
-        $('#module-settings-assistant-remove').html(this._removeModuleAssistantOriginalContent);
+      $('#module-settings-assistant-remove').steps("destroy");
+      $('#module-settings-assistant-remove').html(this._removeModuleAssistantOriginalContent);
     } else {
-        this._removeModuleAssistantOriginalContent = $('#module-settings-assistant-remove').html();
+      this._removeModuleAssistantOriginalContent = $('#module-settings-assistant-remove').html();
     }
 
     $('.module-settings-assistant-section-header-module-type').html(app_controller.install_module_assistant._moduleTypeText);

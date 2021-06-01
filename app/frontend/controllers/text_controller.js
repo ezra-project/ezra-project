@@ -113,9 +113,9 @@ class TextController {
 
         // 1) Only request the first 50 verses and render immediately
         await this.requestBookText(tabIndex, tabId, book,
-          async (htmlVerseList) => { 
-            await this.renderVerseList(htmlVerseList, null, 'book', tabIndex);
-          }, 1, 50
+                                   async (htmlVerseList) => { 
+                                     await this.renderVerseList(htmlVerseList, null, 'book', tabIndex);
+                                   }, 1, 50
         );
 
         await waitUntilIdle();
@@ -534,7 +534,7 @@ class TextController {
     var currentTab = app_controller.tab_controller.getTab(tabIndex);
 
     if (tabIndex === undefined) {
-      var tabIndex = app_controller.tab_controller.getSelectedTabIndex();
+      tabIndex = app_controller.tab_controller.getSelectedTabIndex();
       initialRendering = false;
     }
 

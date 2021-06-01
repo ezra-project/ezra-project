@@ -56,10 +56,10 @@ class ModuleAssistantHelper {
     $('.module-assistant-dialog').find('.ui-dialog-titlebar-close').hide();
 
     // Disable the back button, there is no way back from here
-    $($(wizardId).find('.actions').find('li')[0]).addClass('disabled')
+    $($(wizardId).find('.actions').find('li')[0]).addClass('disabled');
 
     // Disable the finish button as long as we haven't finished
-    $($(wizardId).find('.actions').find('li')[2]).addClass('disabled')
+    $($(wizardId).find('.actions').find('li')[2]).addClass('disabled');
   }
 
   unlockDialog(wizardId) {

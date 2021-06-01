@@ -64,8 +64,7 @@ const template = html`
   <div class="options-header"></div>
     <div class="locale-switch-container">
       <select name="locale-select" class="locale-select">
-        ${locales.map(code =>
-  `<option value="${code}">${i18nHelper.getLanguageName(code, true)}</option>`)}
+        ${locales.map(code => `<option value="${code}">${i18nHelper.getLanguageName(code, true)}</option>`)}
       </select>
       <div class="fg-button locale-detect ui-state-default ui-corner-right" i18n="[title]general.detect-locale-hint">
         <i class="fas fa-globe"></i><span i18n="general.detect-locale"></span>

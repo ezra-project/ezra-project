@@ -173,10 +173,10 @@ class InstallModuleAssistant {
 
   initAddModuleAssistant() {
     if (this._addModuleAssistantOriginalContent != undefined) {
-        $('#module-settings-assistant-add').steps("destroy");
-        $('#module-settings-assistant-add').html(this._addModuleAssistantOriginalContent);
+      $('#module-settings-assistant-add').steps("destroy");
+      $('#module-settings-assistant-add').html(this._addModuleAssistantOriginalContent);
     } else {
-        this._addModuleAssistantOriginalContent = $('#module-settings-assistant-add').html();
+      this._addModuleAssistantOriginalContent = $('#module-settings-assistant-add').html();
     }
 
     $('.module-settings-assistant-section-header-module-type').html(this._moduleTypeText);
@@ -406,7 +406,7 @@ class InstallModuleAssistant {
     }
 
     uiHelper.initProgressBar($('#module-install-progress-bar'));
-    var existingProgressBar = $('#module-install-progress-bar');
+    existingProgressBar = $('#module-install-progress-bar');
 
     if (document.getElementById('cancel-module-installation-button') == null) {
       var cancelModuleInstallationText = i18n.t("general.cancel");
@@ -453,7 +453,7 @@ class InstallModuleAssistant {
 
         if (!moduleReadable) {
           unlockSuccessful = false;
-          var errorMessage = "Locked module is not readable! Wrong unlock key?";
+          const errorMessage = "Locked module is not readable! Wrong unlock key?";
           throw errorMessage;
         }
       }
