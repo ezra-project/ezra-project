@@ -78,7 +78,7 @@
     "log-timestamp": "^0.3.0",
     "marked": "^2.0.0",
     "mousetrap": "^1.6.5",
-    "node-sword-interface": "^0.226.0",
+    "node-sword-interface": "^0.229.0",
     "officegen": "^0.6.4",
     "pug": "^3.0.0",
     "remove-markdown": "^0.3.0",
