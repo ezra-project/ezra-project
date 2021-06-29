@@ -48,7 +48,7 @@
   height: calc(100% - 7px);
 }
 
-.with-dictionary > #tags-content {
+:not("body.Android") .with-dictionary > #tags-content {
   height: 50%;
 }
 
