@@ -620,7 +620,7 @@ class TextController {
     }
 
     if (tabIndex === undefined) {
-      var tabIndex = app_controller.tab_controller.getSelectedTabIndex();
+      tabIndex = app_controller.tab_controller.getSelectedTabIndex();
       initialRendering = false;
     }
 

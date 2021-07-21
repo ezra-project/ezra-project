@@ -23,18 +23,20 @@ class UiHelper {
     this.app_container_height = null;
   }
 
-  configureButtonStyles(context = null) {
+  configureButtonStyles(context=null) {
     if (context == null) {
       context = document;
-    } else {
-      var context = document.querySelector(context);
+    } else if (typeof context === 'string') {
+      context = document.querySelector(context);
+    } else if (!(context instanceof HTMLElement)) {
+      throw new Error('context should be HTMLElement, css selector string or null for the document context');
     }
   
     var buttons = context.querySelectorAll('.fg-button');
   
-    for (var i = 0; i < buttons.length; i++) {
-      var currentButton = buttons[i];
-      var currentButtonClasses = currentButton.classList;
+    for (let i = 0; i < buttons.length; i++) {
+      const currentButton = buttons[i];
+      const currentButtonClasses = currentButton.classList;
   
       if (!currentButtonClasses.contains("ui-state-disabled") && !currentButtonClasses.contains("events-configured")) {
         currentButton.addEventListener('mouseover', function(e) {

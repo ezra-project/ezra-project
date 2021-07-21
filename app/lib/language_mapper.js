@@ -144,9 +144,16 @@ module.exports.getLanguageCode = function(languageName) {
 };
 
 function findLanguage(normalizedCode) {
-  const langs = getLangs();
+  const indexedLangs = getIndexedLangs();
+  var indexedResult = indexedLangs[normalizedCode];
+  if (indexedResult !== undefined) {
+    return indexedResult;
+  }
 
-  for (let i = 0; i < langs.length; i++) {
+  const langs = getLangs();
+  const languageCount = langs.length;
+
+  for (let i = 0; i < languageCount; i++) {
     const currentLang = langs[i];
     if (mappingMatchesCode(currentLang, normalizedCode)) {
       return currentLang;
@@ -163,6 +170,25 @@ function getLangs() {
   }
 
   return langs;
+}
+
+var indexedLangs = null;
+function getIndexedLangs() {
+  if (indexedLangs == null) {
+    const langs = getLangs();
+
+    indexedLangs = {};
+
+    const languageCount = langs.length;
+    for (let i = 0; i < languageCount; i++) {
+      const currentLang = langs[i];
+      if (currentLang.iso6393 !== undefined) {
+        indexedLangs[currentLang.iso6393] = currentLang;
+      }
+    }
+  }
+
+  return indexedLangs;
 }
 
 function mappingMatchesCode(mapping, languageCode) {

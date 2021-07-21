@@ -35,9 +35,9 @@ function hasTag(scenario, tag) {
 }
 
 Before({ timeout: 80000}, async function (scenario) {
-  args = [];
+  var args = [];
 
-  installKjv = true;
+  var installKjv = true;
 
   var app = spectronHelper.getApp();
 

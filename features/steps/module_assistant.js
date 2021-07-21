@@ -17,17 +17,17 @@
    If not, see <http://www.gnu.org/licenses/>. */
 
 const { Given, When, Then } = require("cucumber");
-const { assert } = require("chai");
+const { assert, expect } = require("chai");
 const spectronHelper = require('../helpers/spectron_helper.js');
 const nsiHelper = require("../helpers/nsi_helper.js");
 const uiHelper = require("../helpers/ui_helper.js");
 
-async function clickCheckbox(selector, parentSelector='#module-settings-assistant-add') {
+async function clickCheckbox(checkboxCodeAttr, parentSelector='#module-settings-assistant-add') {
   var parent = await spectronHelper.getWebClient().$(parentSelector);
-  var label = await parent.$(selector);
-  await spectronHelper.getWebClient().waitUntil(async () => { return await label.isExisting(); }, { timeout: 40000 });
-  var checkbox = await label.$('../child::input');
-  await checkbox.click();
+  var checkbox = await parent.$(`[code="${checkboxCodeAttr}"]`);
+  await spectronHelper.getWebClient().waitUntil(async () => { return await checkbox.isExisting(); }, { timeout: 40000 });
+  // click in the shadow
+  spectronHelper.getWebClient().execute((p, c) => document.querySelector(`${p} [code="${c}"]`).shadowRoot.querySelector('#label').click(), parentSelector, checkboxCodeAttr);
 }
 
 async function getNavLinks(moduleSettingsDialogId='#module-settings-assistant-add') {
@@ -64,23 +64,31 @@ Given('I choose to remove translations', async function () {
   await removeModulesButton.click();
 });
 
+Given('the repository update date matches today', {timeout: 40 * 1000}, async function () {
+  var updateInfo = await spectronHelper.getWebClient().$('update-repositories .update-info');
+  await spectronHelper.getWebClient().waitUntil(async () => { return await updateInfo.getText() !== ""; }, { timeout: 40000 });
+
+  const today = (new Date()).toLocaleDateString('en');
+  expect(await updateInfo.getText(), "Date doesn't match today's date").to.equal(`Repository data was last updated on ${today}.`);
+});
+
 Given('I select the CrossWire repository', {timeout: 40 * 1000}, async function () {
-  await clickCheckbox('#CrossWire');
+  await clickCheckbox('CrossWire');
   await clickNext();
 });
 
 Given('I select the English language', {timeout: 40 * 1000}, async function () {
-  await clickCheckbox('#en');
+  await clickCheckbox('en');
   await clickNext();
 });
 
 Given('I select the ASV module for installation', {timeout: 40 * 1000}, async function () {
-  await clickCheckbox('#ASV');
+  await clickCheckbox('ASV');
   await clickNext();
 });
 
 Given('I select the ASV module for removal', {timeout: 40 * 1000}, async function () {
-  await clickCheckbox('#ASV', '#module-settings-assistant-remove');
+  await clickCheckbox('ASV', '#module-settings-assistant-remove');
   await clickNext('#module-settings-assistant-remove');
 });
 

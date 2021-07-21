@@ -59,8 +59,13 @@ class IpcMain {
         if (this._showDebugOutput) {
           console.log(functionName + ' ' + args + ' ' + global.callCounters[functionName]);
         }
-        var returnValue = await callbackFunction(...args);
-        return returnValue;
+
+        try {
+          var returnValue = await callbackFunction(...args);
+          return returnValue;
+        } catch (returnValue) {
+          return returnValue;
+        }
       });
 
     } else if (this._isCordova) {
@@ -70,7 +75,15 @@ class IpcMain {
         if (this._showDebugOutput) {
           console.log(functionName + ' ' + args + ' ' + global.callCounters[functionName]);
         }
-        var returnValue = await callbackFunction(...args);
+
+        var returnValue = null;
+
+        try {
+          returnValue = await callbackFunction(...args);
+        } catch (e) {
+          returnValue = e;
+        }
+
         this._cordova.channel.post(functionName, returnValue);
       });
 
@@ -92,9 +105,14 @@ class IpcMain {
         if (this._showDebugOutput) {
           console.log(functionName + ' ' + global.callCounters[functionName]);
         }
-        return callbackFunction((progress) => { 
-          this.message(progressChannel, progress); 
-        }, ...args);
+
+        try {
+          return await callbackFunction((progress) => { 
+            this.message(progressChannel, progress); 
+          }, ...args);
+        } catch (returnValue) {
+          return returnValue;
+        }
       });
 
     } else if (this._isCordova) {
@@ -104,9 +122,17 @@ class IpcMain {
         if (this._showDebugOutput) {
           console.log(functionName + ' ' + global.callCounters[functionName]);
         }
-        var returnValue = await callbackFunction((progress) => {
-          this.message(progressChannel, progress);
-        }, ...args);
+
+        var returnValue = null;
+
+        try {
+          returnValue = await callbackFunction((progress) => {
+            this.message(progressChannel, progress);
+          }, ...args);
+        } catch (e) {
+          returnValue = e;
+        }
+
         this._cordova.channel.post(functionName, returnValue);
       });
 
@@ -125,7 +151,15 @@ class IpcMain {
       return this._electronIpcMain.on(functionName, async (event, ...args) => {
         global.callCounters[functionName] += 1;
         if (this._showDebugOutput) { console.log(functionName + ' ' + global.callCounters[functionName]); }
-        var returnValue = await callbackFunction(...args);
+
+        var returnValue = null;
+
+        try {
+          returnValue = await callbackFunction(...args);
+        } catch (e) {
+          returnValue = e;
+        }
+
         event.returnValue = returnValue;
       });
     } else if (this._isCordova) {

@@ -1,0 +1,46 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true,
+        "jquery": true,
+        "jest": true
+    },
+    "globals": {
+        "app": "readonly",
+        "isDev": "readonly",
+        "Sentry": "readonly",
+        "loadScript": "readonly",
+        "verseListTemplate": "readonly",
+        "ipcNsi": "readonly",
+        "ipcSettings": "readonly",
+        "ipcDb": "readonly",
+        "ipcGeneral": "readonly",
+        "app_controller": "readonly",
+        "tags_controller": "readonly",
+        "theme_controller": "readonly",
+        "uiHelper": "readonly",
+        "i18n": "readonly",
+        "platformHelper": "readonly"
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 12
+    },
+    "rules": {
+        "indent": ["warn", 2, { 
+            "SwitchCase": 1, 
+            "FunctionDeclaration": {"parameters": "first"}, // indicates that all parameters of the declaration must be aligned with the first parameter
+            "FunctionExpression": {"parameters": "first"},
+            "CallExpression": {"arguments": "first"},
+            "ArrayExpression": "first",
+            "ObjectExpression": "first" 
+        }],
+        // "quotes": ["warn", "single"], // commented because of to many errors
+        "semi": ["warn", "always"], // can be error (default) to enforce the rule
+        "no-unused-vars": "warn", // can be error (default) to enforce the rule
+        "no-redeclare": "warn", // can be error (default) to enforce the rule
+        "block-scoped-var": "warn" // can be error (default) to enforce the rule
+    }
+}

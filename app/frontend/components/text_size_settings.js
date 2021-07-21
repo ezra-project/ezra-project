@@ -46,7 +46,7 @@ class TextSizeSettings {
   async init(tabIndex = undefined) {
     var currentVerseListMenu = app_controller.getCurrentVerseListMenu(tabIndex);
     currentVerseListMenu.find(this.openMenuButton).bind('click', (e) => {
-      e.stopPropagation()
+      e.stopPropagation();
       if (this.menuIsOpened) {
         this.hideTextSizeMenu();
       } else {
@@ -67,7 +67,7 @@ class TextSizeSettings {
     });
 
     if (this.stylesheet === null) {
-      var styleEl = $('<style id="dynamic-text-size" />')
+      var styleEl = $('<style id="dynamic-text-size" />');
       $("head").append(styleEl);
       this.stylesheet = styleEl[0].sheet;
 

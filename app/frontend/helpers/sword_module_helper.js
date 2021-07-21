@@ -206,3 +206,13 @@ module.exports.getThreeLetterVersification = async function(moduleId) {
   var versification = (await this.getVersification(moduleId) == 'ENGLISH' ? 'eng' : 'heb');
   return versification;
 }
+
+module.exports.getModuleLanguage = async function(moduleId) {
+  var swordModule = await this.getSwordModule(moduleId);
+
+  if (swordModule != null) {
+    return swordModule.language;
+  } else {
+    return false;
+  }
+}

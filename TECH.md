@@ -16,6 +16,7 @@ Furthermore, the following components are used (among others):
 * [I18next](https://www.i18next.com/) for internationalization
 * [browserify](http://browserify.org/) for minifying the JavaScript code
 * [fontawesome](https://fontawesome.com/) for the icon set
+* [fuse.js](https://fusejs.io) for fuzzy (approximate) search algorithm
 
 To test Ezra Bible App, the following components are used:
 * [Cucumber.js](https://github.com/cucumber/cucumber-js)

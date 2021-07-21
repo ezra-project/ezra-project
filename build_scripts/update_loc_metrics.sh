@@ -1,7 +1,8 @@
 #!/bin/sh
 
 echo '# Ezra Bible App LOC Metrics' > LOC_METRICS.md
-cloc --md app \
+cloc --md --exclude-dir=__tests__ \
+          app \
           build_scripts \
           css \
           docker \

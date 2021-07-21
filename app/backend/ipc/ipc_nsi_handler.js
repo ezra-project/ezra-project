@@ -83,17 +83,14 @@ class IpcNsiHandler {
       return this._nsi.repositoryConfigExisting();
     });
 
-    this._ipcMain.addWithProgressCallback('nsi_updateRepositoryConfig',
-      async (progressCB) => {
-        try {
-          await this._nsi.updateRepositoryConfig(progressCB);
-          return 0;
-        } catch (e) {
-          return -1;
-        }
-      },
-      'nsi_updateRepoConfigProgress'
-    );
+    this._ipcMain.addWithProgressCallback('nsi_updateRepositoryConfig', async (progressCB) => {
+      try {
+        var retCode = await this._nsi.updateRepositoryConfig(progressCB);
+        return retCode;
+      } catch (retCode) {
+        return retCode;
+      }
+    }, 'nsi_updateRepoConfigProgress');
     
     this._ipcMain.add('nsi_getRepoNames', () => {
       return this._nsi.getRepoNames();
@@ -107,15 +104,7 @@ class IpcNsiHandler {
       return this._nsi.getAllRepoModules(repositoryName, moduleType);
     });
 
-    this._ipcMain.add('nsi_getRepoModulesByLang',
-                      (repositoryName,
-                       language,
-                       moduleType,
-                       headersFilter,
-                       strongsFilter,
-                       hebrewStrongsKeys,
-                       greekStrongsKeys) => {
-
+    this._ipcMain.add('nsi_getRepoModulesByLang', (repositoryName, language, moduleType, headersFilter, strongsFilter, hebrewStrongsKeys, greekStrongsKeys) => {
       return this._nsi.getRepoModulesByLang(repositoryName,
                                             language,
                                             moduleType,
@@ -141,35 +130,31 @@ class IpcNsiHandler {
       return this._nsi.getAllLocalModules(moduleType);
     });
 
-    this._ipcMain.add('nsi_getAllLanguageModuleCount', (selectedRepos, languageArray, moduleType='BIBLE') => {
+    this._ipcMain.add('nsi_getAllLanguageModuleCount', (selectedRepos, languageCodeArray, moduleType='BIBLE') => {
       var allLanguageModuleCount = {};
 
-      for (var i = 0; i < languageArray.length; i++) {
-        var currentLanguage = languageArray[i];
-        var currentLanguageCode = currentLanguage.languageCode;
+      for (let i = 0; i < languageCodeArray.length; i++) {
+        const currentLanguageCode = languageCodeArray[i];
 
-        var currentLanguageModuleCount = this.getLanguageModuleCount(selectedRepos, currentLanguageCode, moduleType);
+        const currentLanguageModuleCount = this.getLanguageModuleCount(selectedRepos, currentLanguageCode, moduleType);
         allLanguageModuleCount[currentLanguageCode] = currentLanguageModuleCount;
       }
 
       return allLanguageModuleCount;
     });
 
-    this._ipcMain.addWithProgressCallback('nsi_installModule',
-      async (progressCB, moduleCode) => { 
-        try {
-          await this._nsi.installModule(progressCB, moduleCode); 
-          return 0;
-        } catch (e) {
-          return -1;
-        }
-      },
-      'nsi_updateInstallProgress'
-    );
+    this._ipcMain.addWithProgressCallback('nsi_installModule', async (progressCB, moduleCode) => { 
+      try {
+        await this._nsi.installModule(progressCB, moduleCode); 
+        return 0;
+      } catch (e) {
+        return -1;
+      }
+    }, 'nsi_updateInstallProgress');
     
     this._ipcMain.add('nsi_cancelInstallation', () => {
       return this._nsi.cancelInstallation();
-    })
+    });
 
     this._ipcMain.addSync('nsi_installModuleSync', async (moduleCode) => {
       try {
@@ -194,7 +179,7 @@ class IpcNsiHandler {
 
     this._ipcMain.add('nsi_isModuleReadable', (moduleCode) => {
       return this._nsi.isModuleReadable(moduleCode);
-    })
+    });
 
     this._ipcMain.add('nsi_getRawModuleEntry', (moduleCode, key) => {
       return this._nsi.getRawModuleEntry(moduleCode, key);
@@ -202,7 +187,7 @@ class IpcNsiHandler {
 
     this._ipcMain.add('nsi_getChapterText', (moduleCode, bookCode, chapter) => {
       return this._nsi.getChapterText(moduleCode, bookCode, chapter);
-    }) 
+    });
 
     this._ipcMain.add('nsi_getBookText', (moduleCode, bookCode, startVerseNr=-1, verseCount=-1) => {
       return this._nsi.getBookText(moduleCode, bookCode, startVerseNr, verseCount);

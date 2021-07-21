@@ -31,7 +31,49 @@ const jqueryI18next = require('jquery-i18next');
 const i18nextOptions = {
   debug: false,
   interpolation: {
-    escapeValue: false
+    escapeValue: false,
+    /** 
+     * adds context and format to the interpolation
+     * @example translation.json:
+     * ...
+     * term: "переклади Біблії",
+     * term_locative: "перекладах Біблії",
+     * ...
+     * message: Інформація о {{term, locative}},
+     * ...
+     */
+    format(value, format, lng) { 
+      if (value instanceof Date) {
+        return value.toLocaleDateString(lng);
+      }
+      
+      var context = format;
+      if (format) {
+        const parts = format.split(',');
+        if (parts.length > 1) {
+          context = parts.shift().trim();
+          format = parts.join(',').trim();
+        } else if (format === 'capitalize' || format === 'title-case') {
+          context = undefined;
+        }
+      }
+
+      if (value == 'BIBLE') {
+        value = "module-assistant.module-type-bible";
+      } else if (value == 'DICT') {
+        value = "module-assistant.module-type-dict";
+      }
+
+      value = i18n.t(value, {context});
+
+      if (format === 'capitalize') {
+        value = value.replace(/^\S/, (c) => c.toLocaleUpperCase());
+      } else if (format === 'title-case') {
+        value = value.replace(/\S*/g, (w) => (w.replace(/^\S/, (c) => c.toLocaleUpperCase())));
+      }
+
+      return value;
+    }
   },
   saveMissing: false,
   fallbackLng: FALLBACK_LOCALE,
@@ -95,7 +137,7 @@ module.exports.initLocale = async function() {
   }
 
   window.reference_separator = i18n.t('general.chapter-verse-separator');
-}
+};
 
 function preserveStringsForStartup() {
   if (!window.localStorage) {
@@ -131,14 +173,14 @@ module.exports.changeLocale = async function(newLocale, saveSettings=true) {
   // Since the new locale may require more or less space vertically we need to adjust
   // the height of the app container now.
   uiHelper.resizeAppContainer();
-}
+};
 
 var localeSubscribers = [];
 module.exports.addLocaleChangeSubscriber = function(subscriberCallback) {
   if (typeof subscriberCallback === 'function') {
     localeSubscribers.push(subscriberCallback);
   }
-}
+};
 
 async function notifySubscribers(locale) {
   for (let subscriberCallback of localeSubscribers) {
@@ -149,13 +191,15 @@ async function notifySubscribers(locale) {
 module.exports.detectLocale = async function() {
   await this.changeLocale(systemLocale || FALLBACK_LOCALE, false);
   await ipcSettings.delete(SETTINGS_KEY);
-}
+};
 
 /** returns current app locale (2-letter language code) */
 module.exports.getLocale = function() {
   var locale = i18n.language;
   return locale.slice(0, 2); // just in case we got language with the region code (i.e "en-US") we want only the language code ("en")
-}
+};
+
+module.exports.getSystemLocale = () => systemLocale;
 
 /** returns detected OS locale */
 module.exports.getSystemLocale = () => systemLocale;
@@ -163,4 +207,4 @@ module.exports.getSystemLocale = () => systemLocale;
 /** returns 2-letter language code list of all available locales for the app */
 module.exports.getAvailableLocales = function() {
   return AVAILABLE_LOCALES.sort();
-}
+};
